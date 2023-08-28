@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+
+  resource.customizations.health.bitnami.com_SealedSecret: |
+    hs = {}
+    hs.status = "Healthy"
+    hs.message = "Controller doesn't report status"
+    return hs
