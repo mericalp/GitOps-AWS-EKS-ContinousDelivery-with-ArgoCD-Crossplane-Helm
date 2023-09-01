@@ -1,0 +1,37 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: applications-project
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Project for parent applicatons used when employing app of apps pattern
+  sourceRepos:
+  - <-- your source helm chart repositoty here
+
+  #
+  # Define sync window
+  #
+  syncWindows:
+  - kind: allow
+    schedule: '5 * * * *'
+    duration: 1h
+    applications:
+    - '*'
+    manualSync: true
+
+  #
+  # Allow this project to deploy only to 'argocd' namespace
+  #
+  destinations:
+  - namespace: argocd
+    server: https://kubernetes.default.svc
+  - namespace: monitoring
+    server: https://XXXXXXXXXXXXXXX.XXX.eu-west-3.eks.amazonaws.com
+
+
+  clusterResourceWhitelist:
+  - group: 'argoproj.io'
+    kind: Application
