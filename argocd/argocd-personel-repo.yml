@@ -1,0 +1,26 @@
+# personal helm repository
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nvogt-helm
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  url: https://nivogt.github.io/ghostblog/
+  type: helm
+  name: nvogt-helm
+
+---
+# personale git repository
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nvogt-git
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git
+  url: https://github.com/mericalp/go
+  name: nvogt-git
